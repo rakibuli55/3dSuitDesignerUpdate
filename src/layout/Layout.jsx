@@ -5,6 +5,7 @@ import CustomizationProvider from "../provider/CustomizationProvider";
 import ProductProvider from "../provider/ProductProvider";
 import Footer from "../shared/Footer";
 import Navbar from "../shared/Navbar";
+import Preloader from "../components/Preloader";
 
 export default function Layout() {
   const location = useLocation();
@@ -13,7 +14,7 @@ export default function Layout() {
 
   return (
     <ProductProvider>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Preloader />}>
         <CustomizationProvider>
           <div className="app-main min-h-screen overflow-x-hidden bg-cover bg-no-repeat bg-center font-cambria relative z-[1]">
             <div
