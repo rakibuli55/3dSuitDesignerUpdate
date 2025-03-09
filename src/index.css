@@ -1,0 +1,268 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Cambria";
+  src: url("./assets/fonts/Cambria-Bold.eot");
+  src: url("./assets/fonts/Cambria-Bold.eot?#iefix") format("embedded-opentype"),
+    url("./assets/fonts/Cambria-Bold.woff2") format("woff2"),
+    url("./assets/fonts/Cambria-Bold.woff") format("woff"),
+    url("./assets/fonts/Cambria-Bold.ttf") format("truetype"),
+    url("./assets/fonts/Cambria-Bold.svg#Cambria-Bold") format("svg");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cambria";
+  src: url("./assets/fonts/Cambria.eot");
+  src: url("./assets/fonts/Cambria.eot?#iefix") format("embedded-opentype"),
+    url("./assets/fonts/Cambria.woff2") format("woff2"),
+    url("./assets/fonts/Cambria.woff") format("woff"),
+    url("./assets/fonts/Cambria.ttf") format("truetype"),
+    url("./assets/fonts/Cambria.svg#Cambria") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer utilities {
+  .stroke-text {
+    -webkit-text-stroke: 1px #1b1812;
+    color: transparent;
+  }
+  .custom-btn svg {
+    transition: all 0.2s ease-in-out;
+  }
+  .custom-btn:hover svg {
+    transform: rotate(45deg);
+  }
+}
+
+body {
+  font-family: "Cambria";
+}
+Canvas {
+  height: 100vh;
+  width: 100vw;
+}
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+.toggle-input:checked + .toggle-slider {
+  background-color: #4da6ff;
+}
+.toggle-input:checked + .toggle-slider:before {
+  transform: translateX(18px);
+}
+.my-custom-tabs .react-tabs__tab-list {
+  border-bottom: none;
+}
+.my-custom-tabs .react-tabs__tab {
+  border-color: transparent;
+  transition: all 0.3s ease-in-out;
+  padding: 8px 16px;
+  border-radius: 40px;
+  font-size: 14px;
+  color: #060605;
+}
+.my-custom-tabs .react-tabs__tab.react-tabs__tab--selected {
+  background-color: #d9e1e6;
+  text-shadow: 0.5px 0px #060605;
+}
+.my-custom-tabs .react-tabs__tab-list {
+  border-bottom: none;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 10px;
+}
+.my-custom-tabs .react-tabs__tab-list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.my-custom-tabs .react-tabs__tab-list::-webkit-scrollbar-thumb {
+  background-color: #d9e1e6;
+  border-radius: 10px;
+}
+
+.my-custom-tabs .react-tabs__tab-list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.fabric-container {
+  height: calc(100vh - 168px);
+}
+
+@layer components {
+  .inner-box p {
+    @apply text-base leading-[27px] text-para-color text-center;
+  }
+  .inner-heading-title {
+    @apply text-[48px] font-bold uppercase mb-8 text-heading-color text-center custom-sm:text-[32px] custom-xs:text-[28px] custom-xs:mb-3;
+  }
+  .inner-box {
+    @apply w-[850px] mx-auto p-[60px] bg-white rounded-[20px] custom-xl:w-[80%] custom-lg:w-[90%] max-md:w-[90%] max-md:p-5 custom-sm:!w-full custom-xs:!w-full;
+  }
+  .privacy-box p {
+    @apply text-left;
+  }
+  .privacy-sub-title {
+    @apply text-[18px] font-bold mb-3;
+  }
+  .toggle-list {
+    @apply custom-xs:!p-3 custom-xs:!pt-0;
+  }
+  .toggle-list .item-label {
+    @apply custom-xs:!text-[12px] custom-xs:leading-normal;
+  }
+  .toggle-list .toggle-item {
+    @apply custom-xs:!mt-2;
+  }
+  .toggle-list .toggle-item label{
+    @apply custom-xs:!w-7
+  }
+  .toggle-slider {
+    @apply custom-xs:!w-7 custom-xs:!h-[14px] custom-xs:!top-1;
+  }
+  .toggle-slider:before {
+    @apply custom-xs:!w-3 custom-xs:!h-3 custom-xs:!left-[2px] custom-xs:!bottom-[0.5px];
+  }
+  .toggle-input:checked + .toggle-slider:before {
+    @apply custom-xs:!translate-x-[13px]
+  }
+  .f-nav-link.active{
+    @apply text-theme-color underline
+  }
+  .customer-information input,
+  .customer-information select{
+    @apply w-full py-3 border-b border-[rgba(0,0,0,0.08)] focus:outline-none;
+  }
+  .order-summary li{
+    @apply flex items-center justify-between py-[14px] first:pt-0
+  }
+  .form-input {
+    @apply w-full xl:w-[380px] rounded-[12px] h-auto py-2 lg:py-4 outline-none border-[1px] border-solid border-[#99D3Ff]  px-3 text-base font-normal leading-[24px] text-[#3c4347];
+  }
+  .common-form-heading {
+    @apply text-[#1B1812]  leading-[150%] font-semibold text-base lg:text-lg;
+  }
+  .dynamic-content-box h1 {
+    @apply text-[32px] font-bold;
+  }
+
+  .dynamic-content-box h2 {
+    @apply text-[28px] font-bold;
+  }
+
+  .dynamic-content-box h3 {
+    @apply text-[24px] font-bold;
+  }
+
+  .dynamic-content-box h4 {
+    @apply text-[20px] font-bold;
+  }
+
+  .dynamic-content-box h5{
+    @apply text-[16px] font-bold;
+  }
+
+  .dynamic-content-box h6 {
+    @apply text-[14px] font-bold;
+  }
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
+
+
+
+#payment-form form > * {
+  margin: 10px 0;
+}
+
+#payment-form button {
+  background-color: var(--accent-color);
+}
+
+#payment-form button {
+  background: var(--accent-color);
+  border-radius: var(--radius);
+  color: white;
+  border: 0;
+  padding: 12px 16px;
+  margin-top: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: block;
+}
+#payment-form button:hover {
+  filter: contrast(115%);
+}
+#payment-form button:active {
+  transform: translateY(0px) scale(0.98);
+  filter: brightness(0.9);
+}
+#payment-form button:disabled {
+  opacity: 0.5;
+  cursor: none;
+}
+
+#payment-form input, #payment-form select {
+  display: block;
+  font-size: 1.1em;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#payment-form label {
+  display: block;
+}
+
+#payment-form a {
+  color: var(--accent-color);
+  font-weight: 900;
+}
+
+#payment-form small {
+  font-size: .6em;
+}
+
+#payment-form fieldset, #payment-form input, #payment-form select {
+  border: 1px solid #efefef;
+}
+
+#payment-form {
+  border: #F6F9FC solid 1px;
+  border-radius: var(--radius);
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 30px 50px -20px rgb(50 50 93 / 25%), 0 30px 60px -30px rgb(0 0 0 / 30%);
+  background-color: white;
+}
+
+#messages {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
+  display: none; /* hide initially, then show once the first message arrives */
+  background-color: #0A253C;
+  color: #00D924;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: var(--radius);
+  font-size:0.7em;
+}
+
+
