@@ -2,10 +2,13 @@ import React, { useContext, useEffect, useRef } from "react";
 import { CustomizationContext } from "../context/CustomizationContext";
 import { useGLTF } from "@react-three/drei";
 import { gsap } from "gsap";
+import { ColorContext, FabricContext } from "../context/index";
 
 function Model(props) {
   const groupRef = useRef();
-  const { colors, toggledItems, textures } = useContext(CustomizationContext);
+  const { toggledItems } = useContext(CustomizationContext);
+  const {textures} = useContext(FabricContext);
+  const {colors} = useContext(ColorContext);
   const { nodes, materials } = useGLTF("/suitNewV4.gltf");
 
   useEffect(() => {
@@ -38,6 +41,14 @@ function Model(props) {
         position={[0.004, -2.472, 0.191]}
         scale={0.029}
       >
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.ShirtButton.geometry}
+          material={nodes.ShirtButton.material.clone()}
+          material-color={colors.shirtButtonColor}
+          position={[0, -1, 0]}
+        />
         {toggledItems.map((item, index) => {
           if (item.toggled) {
             switch (item.name) {
@@ -116,7 +127,7 @@ function Model(props) {
                     scale={[1.364, 0.183, 0.183]}
                   />
                 );
-              case "waistCoat":
+              case "waistcoat":
                 return (
                   <React.Fragment key={`waistCoat-${index}`}>
                     <mesh
@@ -153,7 +164,7 @@ function Model(props) {
                       material={nodes.Shoes.material.clone()}
                       material-color={colors.shoeColor}
                       material-map={
-                        textures.shoePattern ? textures.shoePattern : null
+                        textures.shoePattern || null
                       }
                     />
                     <mesh
@@ -162,6 +173,9 @@ function Model(props) {
                       geometry={nodes.ShoesSole.geometry}
                       material={nodes.ShoesSole.material.clone()}
                       material-color={colors.shoeSoleColor}
+                      material-map={
+                        textures.shoePattern || null
+                      }
                     />
                     <mesh
                       castShadow
@@ -200,13 +214,7 @@ function Model(props) {
           return null;
         })}
 
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.ShirtButton.geometry}
-          material={nodes.ShirtButton.material.clone()}
-          material-color={colors.shirtButtonColor}
-        />
+        
       </mesh>
     </group>
   );

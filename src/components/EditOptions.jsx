@@ -66,7 +66,7 @@ function EditOptions() {
         <div className="edit-option">
           <div
             className="h-[70px] w-[70px] max-md:h-[60px] max-md:w-[60px] custom-sm:!w-[50px] custom-sm:!h-[50px] custom-xs:!w-12 custom-xs:!h-12 cursor-pointer flex items-center justify-center bg-white rounded-full"
-            onClick={() => handleSidebar("pant")}
+            onClick={() => handleSidebar("pants")}
           >
             <img src={pantImg} className="custom-xl:h-12 custom-xl:w-12 max-md:w-10 max-md-h-10" alt="pantImg" />
           </div>

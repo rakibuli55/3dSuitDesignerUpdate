@@ -7,7 +7,8 @@ const useGetDynamicData = () => {
         queryFn: async () => {
           const res = await api.get('/dynamic-page');
           return res?.data?.data;
-        }
+        },
+        retry:1,
       });
 
     return {dynamicPageData, dynamicPageDataLoading}

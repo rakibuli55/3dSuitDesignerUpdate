@@ -1,6 +1,6 @@
 const options = {
     jacket: {
-      colors: {
+      fabricColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -11,7 +11,7 @@ const options = {
         navyBlue: "#071746",
         golden: "#C6985D",
       },
-      buttons: {
+      buttonColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -19,28 +19,10 @@ const options = {
         maroonDeep: "#3A0E12",
         blueLight: "#506C91",
         white: "#ffffff",
-      },
-      fabrics: {
-        solid: "",
-        pinstripe: "jacketpinstripe",
-        chalkstripe: "jacketchalkstripe",
-        windowpane: "jacketwindowpane",
-        tattersall: "jackettattersall",
-        herringbone: "jacketherringbone",
-        barleycorn: "jacketbarleycorn",
-        nailshead: "jacketnailshead",
-        birdseye: "jacketbirdseye",
-        glencheck: "jacketglencheck",
-        shepherdscheck: "jacketshepherdscheck",
-        tartan: "jackettartan",
-        tartantwo: "jackettartantwo",
-        houndstooth: "jackethoundstooth",
-        paisley: "jacketpaisley",
-        floral: "jacketfloral",
       },
     },
     shirt: {
-      colors: {
+      fabricColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -51,7 +33,7 @@ const options = {
         navyBlue: "#071746",
         golden: "#C6985D",
       },
-      buttons: {
+      buttonColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -59,26 +41,10 @@ const options = {
         maroonDeep: "#3A0E12",
         blueLight: "#506C91",
         white: "#ffffff",
-      },
-      fabrics: {
-        solid: "",
-        pencilstripe: "shirtpencilstripe",
-        stripe: "shirtstripe",
-        awning: "shirtawning",
-        gingham: "shirtgingham",
-        graphcheck: "shirtgraphcheck",
-        windowpane: "shirtwindowpane",
-        tattersall: "shirttattersall",
-        pindot: "shirtpindot",
-        polkadot: "shirtpotkadot",
-        tartan: "shirttartan",
-        madras: "shirtmadras",
-        paisley: "shirtpaisley",
-        floral: "shirtfloral",
       },
     },
     tie: {
-      colors: {
+      fabricColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -88,26 +54,10 @@ const options = {
         white: "#ffffff",
         navyBlue: "#071746",
         golden: "#C6985D",
-      },
-      fabrics: {
-        solid: "",
-        pencilstripe: "tiepencilstripe",
-        stripe: "tiestripe",
-        awning: "tieawning",
-        gingham: "tiegingham",
-        graphcheck: "tiegraphcheck",
-        windowpane: "tiewindowpane",
-        tattersall: "tietattersall",
-        pindot: "tiepindot",
-        polkadot: "tiepotkadot",
-        tartan: "tietartan",
-        madras: "tiemadras",
-        paisley: "tiepaisley",
-        floral: "tiefloral",
-      },
+      }
     },
     waistcoat: {
-      colors: {
+      fabricColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -118,7 +68,7 @@ const options = {
         navyBlue: "#071746",
         golden: "#C6985D",
       },
-      buttons: {
+      buttonColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -126,28 +76,10 @@ const options = {
         maroonDeep: "#3A0E12",
         blueLight: "#506C91",
         white: "#ffffff",
-      },
-      fabrics: {
-        solid: "",
-        pinstripe: "waistcoatpinstripe",
-        chalkstripe: "waistcoatchalkstripe",
-        windowpane: "waistcoatwindowpane",
-        tattersall: "waistcoattattersall",
-        herringbone: "waistcoatherringbone",
-        barleycorn: "waistcoatbarleycorn",
-        nailshead: "waistcoatnailshead",
-        birdseye: "waistcoatbirdseye",
-        glencheck: "waistcoatglencheck",
-        shepherdscheck: "waistcoatshepherdscheck",
-        tartan: "waistcoattartan",
-        tartantwo: "waistcoattartantwo",
-        houndstooth: "waistcoathoundstooth",
-        paisley: "waistcoatpaisley",
-        floral: "waistcoatfloral",
       },
     },
     pants: {
-      colors: {
+      fabricColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -158,7 +90,7 @@ const options = {
         navyBlue: "#071746",
         golden: "#C6985D",
       },
-      buttons: {
+      buttonColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -166,28 +98,10 @@ const options = {
         maroonDeep: "#3A0E12",
         blueLight: "#506C91",
         white: "#ffffff",
-      },
-      fabrics: {
-        solid: "",
-        pinstripe: "pantspinstripe",
-        chalkstripe: "pantschalkstripe",
-        windowpane: "pantswindowpane",
-        tattersall: "pantstattersall",
-        herringbone: "pantsherringbone",
-        barleycorn: "pantsbarleycorn",
-        nailshead: "pantsnailshead",
-        birdseye: "pantsbirdseye",
-        glencheck: "pantsglencheck",
-        shepherdscheck: "pantsshepherdscheck",
-        tartan: "pantstartan",
-        tartantwo: "pantstartantwo",
-        houndstooth: "pantshoundstooth",
-        paisley: "pantspaisley",
-        floral: "pantsfloral",
       },
     },
     shoe: {
-      colors: {
+      fabricColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -198,7 +112,7 @@ const options = {
         navyBlue: "#071746",
         golden: "#C6985D",
       },
-      strips: {
+      stripColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -207,7 +121,7 @@ const options = {
         blueLight: "#506C91",
         white: "#ffffff",
       },
-      sole: {
+      soleColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -215,16 +129,10 @@ const options = {
         maroonDeep: "#3A0E12",
         blueLight: "#506C91",
         white: "#ffffff",
-      },
-      pattern: {
-        solid: "",
-        suede: "shoeSuede",
-        paisley: "shoePaisley",
-        floral: "shoeFloral",
       },
     },
     beltPocket: {
-      colors: {
+      beltColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -235,7 +143,7 @@ const options = {
         navyBlue: "#071746",
         golden: "#C6985D",
       },
-      pocketSquare: {
+      pocketSquareColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -244,7 +152,7 @@ const options = {
         blueLight: "#506C91",
         white: "#ffffff",
       },
-      socks: {
+      sockColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",
@@ -253,7 +161,7 @@ const options = {
         blueLight: "#506C91",
         white: "#ffffff",
       },
-      buckle: {
+      buckleColors: {
         gray: "#545454",
         grayLight: "#8C8C8C",
         maroon: "#800A0A",

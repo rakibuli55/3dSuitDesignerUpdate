@@ -1,13 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
+
 import gsap from "gsap";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { api } from "../Api/index";
 import facebookIcon from "../assets/images/Facebook.svg";
 import instaIcon from "../assets/images/instagram.svg";
 import pinterestIcon from "../assets/images/pinterest.svg";
 import twitterIcon from "../assets/images/twitter.svg";
 import SocialIcon from "../components/social/SocialIcon";
+import { AuthContext } from "../context/index";
 
 function Footer() {
   const location = useLocation();
@@ -39,13 +39,8 @@ function Footer() {
     );
   }, []);
 
-  const { data: socialMediaData, isLoading: socialMediaLoading } = useQuery({
-    queryKey: ["socialData"],
-    queryFn: async () => {
-      const response = await api.get("/social-media");
-      return response?.data?.data;
-    },
-  });
+
+  const {socialMediaData} = useContext(AuthContext)
 
 
   return (

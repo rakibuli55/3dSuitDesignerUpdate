@@ -1,16 +1,27 @@
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import closeImg from "../assets/images/close.svg";
 import { useContext } from "react";
-import { CustomizationContext } from "../context/CustomizationContext";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import closeImg from "../assets/images/close.svg";
 import { options } from "../configData/configData";
-
+import { CustomizationContext } from "../context/CustomizationContext";
+import { ColorContext, FabricContext } from "../context/index";
+import { GrFormEdit } from "react-icons/gr";
 
 function Sidebar() {
+  const {
+    handleSidebar,
+    isSidebarOpen,
+    sidebarValue,
+    fabricData,
+  } = useContext(CustomizationContext);
+  const { handleTexturesChange, handleButtonClick, selectedFabrics } =
+    useContext(FabricContext);
+  const { colors, handleColorChange, selectedColor, handleActiveColorButton } =
+    useContext(ColorContext);
     
-  const {handleSidebar, isSidebarOpen, sidebarValue, CustomColors, activeButton, handleCustomColorChnage, handleFixedColor, handleTexturesChange} = useContext(CustomizationContext)
+
   return (
     <div
-      className={`sidebar absolute top-0 bottom-0 w-[396px] max-md:w-[300px] bg-white p-6 duration-300 ease-in-out overflow-hidden z-[50] max-md:bg-[rgba(255,255,255,0.3)] max-md:backdrop-blur-sm ${
+      className={`sidebar absolute top-0 bottom-0 w-[396px] max-md:w-[300px] bg-[#f5f5f5] shadow-lg p-6 duration-300 ease-in-out overflow-hidden z-[50] max-md:bg-[rgba(255,255,255,0.3)] max-md:backdrop-blur-sm ${
         isSidebarOpen
           ? "right-0 visible opacity-100"
           : "right-[-396px] invisible opacity-0"
@@ -35,41 +46,39 @@ function Sidebar() {
 
               <div className="fabric-container overflow-y-auto">
                 <TabPanel className="mt-7">
-                  <div className="grid grid-cols-5 gap-5">
-                    <div>
+                  <div className="grid grid-cols-5 gap-5 ">
+                    <div className="relative">
                       <input
                         id="jacketColor"
                         data-target="jacketColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.jacketColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        value={colors.jacketColor}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="jacketColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.jacketColor }}
-                      ></label>
+                        style={{ background: colors.jacketColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
+                      
                     </div>
                     {options.jacket &&
-                      options.jacket.colors &&
-                      Object.entries(options.jacket.colors).map(
+                      options.jacket.fabricColors &&
+                      Object.entries(options.jacket.fabricColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.jacketColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : "outline-transparent"
-                              } ${
-                                value === "#ffffff"
-                                  ? "!outline-gray-300"
-                                  : "outline-transparent"
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full duration-200 ease-in-out ml-[2px] ${selectedColor.jacketColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''}`}
                               data-value={value}
                               data-target="jacketColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('jacketColor', value)
+                              }}
                             ></button>
                           </div>
                         )
@@ -78,40 +87,36 @@ function Sidebar() {
                 </TabPanel>
                 <TabPanel>
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="jacketButtonColor"
                         data-target="jacketButtonColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.jacketButtonColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="jacketButtonColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.jacketButtonColor }}
-                      ></label>
+                        style={{ background: colors.jacketButtonColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.jacket &&
-                      options.jacket.colors &&
-                      Object.entries(options.jacket.buttons).map(
+                      options.jacket.buttonColors &&
+                      Object.entries(options.jacket.buttonColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.jacketButtonColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : "outline-transparent"
-                              } ${
-                                value === "#ffffff"
-                                  ? "!outline-gray-300"
-                                  : "outline-transparent"
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ml-[2px] ${selectedColor.jacketButtonColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''}`}
                               data-value={value}
                               data-target="jacketButtonColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('jacketButtonColor', value);
+                              }}
                             ></button>
                           </div>
                         )
@@ -119,23 +124,29 @@ function Sidebar() {
                   </div>
                 </TabPanel>
                 <TabPanel>
-                  {options.jacket &&
-                    options.jacket.fabrics &&
-                    Object.entries(options.jacket.fabrics).map(
-                      ([key, value]) => (
-                        <button
-                          key={key}
-                          value={key}
-                          data-fabric={value}
-                          onClick={() =>
-                            handleTexturesChange("jacketTexture", value)
-                          }
-                          className="block py-3 px-4 text-left capitalize  rounded-[8px] bg-[#EBEFF2] text-sm w-full text-[#060605] mt-3"
-                        >
-                          {key}
-                        </button>
-                      )
-                    )}
+                  {fabricData &&
+                    fabricData.map((fabric) => (
+                      <button
+                        key={fabric?.id}
+                        value={fabric?.fabric}
+                        data-fabric={fabric?.fabric.toLowerCase()}
+                        onClick={() => {
+                          handleTexturesChange(
+                            "jacketTexture",
+                            `jacket${fabric?.fabric.toLowerCase()}`
+                          );
+                          handleButtonClick("jacket", fabric);
+                        }}
+                        className={`block py-3 px-4 text-left capitalize  rounded-[8px] bg-[#EBEFF2] text-sm w-full text-[#060605] mt-3 ${
+                          selectedFabrics?.jacket ===
+                          fabric.fabric.toLowerCase()
+                            ? "bg-theme-color"
+                            : ""
+                        }`}
+                      >
+                        {fabric?.fabric}
+                      </button>
+                    ))}
                 </TabPanel>
               </div>
             </Tabs>
@@ -156,40 +167,37 @@ function Sidebar() {
               <div className="fabric-container overflow-y-auto">
                 <TabPanel className="mt-7">
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="shirtColor"
                         data-target="shirtColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.shirtColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        value={colors.shirtColor}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="shirtColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.shirtColor }}
-                      ></label>
+                        style={{ background: colors.shirtColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.shirt &&
-                      options.shirt.colors &&
-                      Object.entries(options.shirt.colors).map(
+                      options.shirt.fabricColors &&
+                      Object.entries(options.shirt.fabricColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.shirtColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : "outline-transparent"
-                              } ${
-                                value === "#ffffff"
-                                  ? "!outline-gray-300"
-                                  : "border-transparent"
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ml-[2px] ${selectedColor.shirtColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''}`}
                               data-value={value}
                               data-target="shirtColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('shirtColor', value);
+                              }}
                             ></button>
                           </div>
                         )
@@ -198,38 +206,37 @@ function Sidebar() {
                 </TabPanel>
                 <TabPanel>
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="shirtButtonColor"
                         data-target="shirtButtonColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.shirtButtonColor}
+                        value={colors.shirtButtonColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="shirtButtonColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.shirtButtonColor }}
-                      ></label>
+                        style={{ background: colors.shirtButtonColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.shirt &&
-                      options.shirt.buttons &&
-                      Object.entries(options.shirt.buttons).map(
+                      options.shirt.buttonColors &&
+                      Object.entries(options.shirt.buttonColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-transparent outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.shirtButtonColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : ""
-                              } ${
-                                value === "#ffffff" ? "!outline-gray-300" : ""
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.shirtButtonColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''} ml-[2px]`}
                               data-value={value}
                               data-target="shirtButtonColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e),
+                                handleActiveColorButton('shirtButtonColor', value);
+                              }}
                             ></button>
                           </div>
                         )
@@ -237,23 +244,29 @@ function Sidebar() {
                   </div>
                 </TabPanel>
                 <TabPanel>
-                  {options.shirt &&
-                    options.shirt.fabrics &&
-                    Object.entries(options.shirt.fabrics).map(
-                      ([key, value]) => (
-                        <button
-                          key={key}
-                          value={key}
-                          data-fabric={value}
-                          onClick={() =>
-                            handleTexturesChange("shirtTexture", value)
-                          }
-                          className="block py-3 px-4 text-left capitalize  rounded-[8px] bg-[#EBEFF2] text-sm w-full text-[#060605] mt-3"
-                        >
-                          {key}
-                        </button>
-                      )
-                    )}
+                  {fabricData &&
+                    fabricData.map((fabric) => (
+                      <button
+                        key={fabric?.id}
+                        value={fabric?.fabric}
+                        data-fabric={fabric?.fabric.toLowerCase()}
+                        onClick={() => {
+                          handleTexturesChange(
+                            "shirtTexture",
+                            `shirt${fabric?.fabric.toLowerCase()}`
+                          );
+                          handleButtonClick("shirt", fabric);
+                        }}
+                        className={`block py-3 px-4 text-left capitalize  rounded-[8px] bg-[#EBEFF2] text-sm w-full text-[#060605] mt-3 ${
+                          selectedFabrics?.shirt ===
+                          fabric.fabric.toLowerCase()
+                            ? "bg-theme-color"
+                            : ""
+                        }`}
+                      >
+                        {fabric?.fabric}
+                      </button>
+                    ))}
                 </TabPanel>
               </div>
             </Tabs>
@@ -273,58 +286,63 @@ function Sidebar() {
               <div className="fabric-container overflow-y-auto">
                 <TabPanel className="mt-7">
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="tieColor"
                         data-target="tieColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.tieColor}
+                        value={colors.tieColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="tieColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.tieColor }}
-                      ></label>
+                        style={{ background: colors.tieColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.tie &&
-                      options.tie.colors &&
-                      Object.entries(options.tie.colors).map(([key, value]) => (
+                      options.tie.fabricColors &&
+                      Object.entries(options.tie.fabricColors).map(([key, value]) => (
                         <div key={key}>
                           <button
-                            className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-transparent outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                              activeButton.tieColor === value
-                                ? "active-button !outline-[#4da6ff]"
-                                : ""
-                            } ${
-                              value === "#ffffff"
-                                ? "!outline-gray-300"
-                                : "border-transparent"
-                            } `}
+                            className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.tieColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''} ml-[2px] `}
                             data-value={value}
                             data-target="tieColor"
                             style={{ backgroundColor: value }}
-                            onClick={handleFixedColor}
+                            onClick={(e) => {
+                              handleColorChange(e),
+                              handleActiveColorButton('tieColor', value)
+                            }}
                           ></button>
                         </div>
                       ))}
                   </div>
                 </TabPanel>
                 <TabPanel>
-                  {options.tie &&
-                    options.tie.fabrics &&
-                    Object.entries(options.tie.fabrics).map(([key, value]) => (
+                {fabricData &&
+                    fabricData.map((fabric) => (
                       <button
-                        key={key}
-                        value={key}
-                        data-fabric={value}
-                        onClick={() =>
-                          handleTexturesChange("tieTexture", value)
-                        }
-                        className="block py-3 px-4 text-left capitalize  rounded-[8px] bg-[#EBEFF2] text-sm w-full text-[#060605] mt-3"
+                        key={fabric?.id}
+                        value={fabric?.fabric}
+                        data-fabric={fabric?.fabric.toLowerCase()}
+                        onClick={() => {
+                          handleTexturesChange(
+                            "tieTexture",
+                            `tie${fabric?.fabric.toLowerCase()}`
+                          );
+                          handleButtonClick("tie", fabric);
+                        }}
+                        className={`block py-3 px-4 text-left capitalize  rounded-[8px] bg-[#EBEFF2] text-sm w-full text-[#060605] mt-3 ${
+                          selectedFabrics?.tie ===
+                          fabric.fabric.toLowerCase()
+                            ? "bg-theme-color"
+                            : ""
+                        }`}
                       >
-                        {key}
+                        {fabric?.fabric}
                       </button>
                     ))}
                 </TabPanel>
@@ -347,40 +365,37 @@ function Sidebar() {
               <div className="fabric-container overflow-y-auto">
                 <TabPanel className="mt-7">
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="waistcoatColor"
                         data-target="waistcoatColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.waistcoatColor}
+                        value={colors.waistcoatColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="waistcoatColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.waistcoatColor }}
-                      ></label>
+                        style={{ background: colors.waistcoatColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.waistcoat &&
-                      options.waistcoat.colors &&
-                      Object.entries(options.waistcoat.colors).map(
+                      options.waistcoat.fabricColors &&
+                      Object.entries(options.waistcoat.fabricColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.waistcoatColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : "outline-transparent"
-                              } ${
-                                value === "#ffffff"
-                                  ? "!outline-gray-300"
-                                  : "border-transparent"
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.waistcoatColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''} `}
                               data-value={value}
                               data-target="waistcoatColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('waistcoatColor', value)
+                              }}
                             ></button>
                           </div>
                         )
@@ -389,40 +404,39 @@ function Sidebar() {
                 </TabPanel>
                 <TabPanel>
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="waistcoatButtonColor"
                         data-target="waistcoatButtonColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.shirtButtonColor}
+                        value={colors.waistcoatButtonColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="waistcoatButtonColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
                         style={{
-                          background: CustomColors.waistcoatButtonColor,
+                          background: colors.waistcoatButtonColor,
                         }}
-                      ></label>
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.waistcoat &&
-                      options.waistcoat.buttons &&
-                      Object.entries(options.waistcoat.buttons).map(
+                      options.waistcoat.buttonColors &&
+                      Object.entries(options.waistcoat.buttonColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-transparent outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.waistcoatButtonColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : ""
-                              } ${
-                                value === "#ffffff" ? "!outline-gray-300" : ""
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.waistcoatButtonColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''} ml-[2px] `}
                               data-value={value}
                               data-target="waistcoatButtonColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('waistcoatButtonColor', value)
+                              }}
                             ></button>
                           </div>
                         )
@@ -430,23 +444,29 @@ function Sidebar() {
                   </div>
                 </TabPanel>
                 <TabPanel>
-                  {options.waistcoat &&
-                    options.waistcoat.fabrics &&
-                    Object.entries(options.waistcoat.fabrics).map(
-                      ([key, value]) => (
-                        <button
-                          key={key}
-                          value={key}
-                          data-fabric={value}
-                          onClick={() =>
-                            handleTexturesChange("waistcoatTexture", value)
-                          }
-                          className="block py-3 px-4 text-left capitalize  rounded-[8px] bg-[#EBEFF2] text-sm w-full text-[#060605] mt-3"
-                        >
-                          {key}
-                        </button>
-                      )
-                    )}
+                {fabricData &&
+                    fabricData.map((fabric) => (
+                      <button
+                        key={fabric?.id}
+                        value={fabric?.fabric}
+                        data-fabric={fabric?.fabric.toLowerCase()}
+                        onClick={() => {
+                          handleTexturesChange(
+                            "waistcoatTexture",
+                            `waistcoat${fabric?.fabric.toLowerCase()}`
+                          );
+                          handleButtonClick("waistcoat", fabric);
+                        }}
+                        className={`block py-3 px-4 text-left capitalize  rounded-[8px] bg-[#EBEFF2] text-sm w-full text-[#060605] mt-3 ${
+                          selectedFabrics?.waistcoat ===
+                          fabric.fabric.toLowerCase()
+                            ? "bg-theme-color"
+                            : ""
+                        }`}
+                      >
+                        {fabric?.fabric}
+                      </button>
+                    ))}
                 </TabPanel>
               </div>
             </Tabs>
@@ -454,8 +474,8 @@ function Sidebar() {
         ) : (
           ""
         )}
-        {/* waistcoat  */}
-        {sidebarValue === "pant" ? (
+        {/* pant  */}
+        {sidebarValue === "pants" ? (
           <div>
             <Tabs className="my-custom-tabs">
               <TabList>
@@ -467,40 +487,37 @@ function Sidebar() {
               <div className="fabric-container overflow-y-auto">
                 <TabPanel className="mt-7">
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="pantsColor"
                         data-target="pantsColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.pantsColor}
+                        value={colors.pantsColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="pantsColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.pantsColor }}
-                      ></label>
+                        style={{ background: colors.pantsColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.pants &&
-                      options.pants.colors &&
-                      Object.entries(options.pants.colors).map(
+                      options.pants.fabricColors &&
+                      Object.entries(options.pants.fabricColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.pantsColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : "outline-transparent"
-                              } ${
-                                value === "#ffffff"
-                                  ? "!outline-gray-300"
-                                  : "border-transparent"
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.pantsColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''} ml-[2px]`}
                               data-value={value}
                               data-target="pantsColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('pantsColor', value)
+                              }}
                             ></button>
                           </div>
                         )
@@ -509,38 +526,37 @@ function Sidebar() {
                 </TabPanel>
                 <TabPanel>
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="pantsButtonColor"
                         data-target="pantsButtonColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.shirtButtonColor}
+                        value={colors.pantsButtonColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="pantsButtonColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.pantsButtonColor }}
-                      ></label>
+                        style={{ background: colors.pantsButtonColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.pants &&
-                      options.pants.buttons &&
-                      Object.entries(options.pants.buttons).map(
+                      options.pants.buttonColors &&
+                      Object.entries(options.pants.buttonColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-transparent outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.pantsButtonColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : ""
-                              } ${
-                                value === "#ffffff" ? "!outline-gray-300" : ""
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.pantsButtonColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''} ml-[2px]`}
                               data-value={value}
                               data-target="pantsButtonColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('pantsButtonColor', value)
+                              }}
                             ></button>
                           </div>
                         )
@@ -548,23 +564,29 @@ function Sidebar() {
                   </div>
                 </TabPanel>
                 <TabPanel>
-                  {options.pants &&
-                    options.pants.fabrics &&
-                    Object.entries(options.pants.fabrics).map(
-                      ([key, value]) => (
-                        <button
-                          key={key}
-                          value={key}
-                          data-fabric={value}
-                          onClick={() =>
-                            handleTexturesChange("pantsTexture", value)
-                          }
-                          className="block py-3 px-4 text-left capitalize  rounded-[8px] bg-[#EBEFF2] text-sm w-full text-[#060605] mt-3"
-                        >
-                          {key}
-                        </button>
-                      )
-                    )}
+                {fabricData &&
+                    fabricData.map((fabric) => (
+                      <button
+                        key={fabric?.id}
+                        value={fabric?.fabric}
+                        data-fabric={fabric?.fabric.toLowerCase()}
+                        onClick={() => {
+                          handleTexturesChange(
+                            "pantsTexture",
+                            `pants${fabric?.fabric.toLowerCase()}`
+                          );
+                          handleButtonClick("pant", fabric);
+                        }}
+                        className={`block py-3 px-4 text-left capitalize  rounded-[8px] bg-[#EBEFF2] text-sm w-full text-[#060605] mt-3 ${
+                          selectedFabrics?.pant ===
+                          fabric.fabric.toLowerCase()
+                            ? "bg-theme-color"
+                            : ""
+                        }`}
+                      >
+                        {fabric?.fabric}
+                      </button>
+                    ))}
                 </TabPanel>
               </div>
             </Tabs>
@@ -586,40 +608,37 @@ function Sidebar() {
               <div className="fabric-container overflow-y-auto">
                 <TabPanel className="mt-7">
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="shoeColor"
                         data-target="shoeColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.shoeColor}
+                        value={colors.shoeColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="shoeColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.shoeColor }}
-                      ></label>
+                        style={{ background: colors.shoeColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.shoe &&
-                      options.shoe.colors &&
-                      Object.entries(options.shoe.colors).map(
+                      options.shoe.fabricColors &&
+                      Object.entries(options.shoe.fabricColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.shoeColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : "outline-transparent"
-                              } ${
-                                value === "#ffffff"
-                                  ? "!outline-gray-300"
-                                  : "border-transparent"
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ml-[2px] ${selectedColor.shoeColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''}`}
                               data-value={value}
                               data-target="shoeColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('shoeColor', value)
+                              }}
                             ></button>
                           </div>
                         )
@@ -628,38 +647,37 @@ function Sidebar() {
                 </TabPanel>
                 <TabPanel>
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="shoeStripeColor"
                         data-target="shoeStripeColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.shoeStripeColor}
+                        value={colors.shoeStripeColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="shoeStripeColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.shoeStripeColor }}
-                      ></label>
+                        style={{ background: colors.shoeStripeColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.shoe &&
-                      options.shoe.strips &&
-                      Object.entries(options.shoe.strips).map(
+                      options.shoe.stripColors &&
+                      Object.entries(options.shoe.stripColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-transparent outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.shoeStripeColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : ""
-                              } ${
-                                value === "#ffffff" ? "!outline-gray-300" : ""
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.shoeStripeColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''} ease-in-out ml-[2px]`}
                               data-value={value}
                               data-target="shoeStripeColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('shoeStripeColor', value)
+                              }}
                             ></button>
                           </div>
                         )
@@ -668,56 +686,63 @@ function Sidebar() {
                 </TabPanel>
                 <TabPanel>
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="shoeSoleColor"
                         data-target="shoeSoleColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.shoeSoleColor}
+                        value={colors.shoeSoleColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="shoeSoleColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.shoeSoleColor }}
-                      ></label>
+                        style={{ background: colors.shoeSoleColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.shoe &&
-                      options.shoe.sole &&
-                      Object.entries(options.shoe.sole).map(([key, value]) => (
+                      options.shoe.soleColors &&
+                      Object.entries(options.shoe.soleColors).map(([key, value]) => (
                         <div key={key}>
                           <button
-                            className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-transparent outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                              activeButton.shoeSoleColor === value
-                                ? "active-button !outline-[#4da6ff]"
-                                : ""
-                            } ${
-                              value === "#ffffff" ? "!outline-gray-300" : ""
-                            } `}
+                            className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.shoeSoleColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''} ml-[2px]`}
                             data-value={value}
                             data-target="shoeSoleColor"
                             style={{ backgroundColor: value }}
-                            onClick={handleFixedColor}
+                            onClick={(e) => {
+                              handleColorChange(e);
+                              handleActiveColorButton('shoeSoleColor', value)
+                            }}
                           ></button>
                         </div>
                       ))}
                   </div>
                 </TabPanel>
                 <TabPanel>
-                  {options.shoe &&
-                    options.shoe.pattern &&
-                    Object.entries(options.shoe.pattern).map(([key, value]) => (
+                {fabricData &&
+                    fabricData.map((fabric) => (
                       <button
-                        key={key}
-                        value={key}
-                        data-fabric={value}
-                        onClick={() =>
-                          handleTexturesChange("shoePattern", value)
-                        }
-                        className="block py-3 px-4 text-left capitalize  rounded-[8px] bg-[#EBEFF2] text-sm w-full text-[#060605] mt-3"
+                        key={fabric?.id}
+                        value={fabric?.fabric}
+                        data-fabric={fabric?.fabric.toLowerCase()}
+                        onClick={() => {
+                          handleTexturesChange(
+                            "shoeTexture",
+                            `shoe${fabric?.fabric.toLowerCase()}`
+                          );
+                          handleButtonClick("shoe", fabric);
+                        }}
+                        className={`block py-3 px-4 text-left capitalize  rounded-[8px] bg-[#EBEFF2] text-sm w-full text-[#060605] mt-3 ${
+                          selectedFabrics?.shoe ===
+                          fabric.fabric.toLowerCase()
+                            ? "bg-theme-color"
+                            : ""
+                        }`}
                       >
-                        {key}
+                        {fabric?.fabric}
                       </button>
                     ))}
                 </TabPanel>
@@ -741,40 +766,37 @@ function Sidebar() {
               <div className="fabric-container overflow-y-auto">
                 <TabPanel className="mt-7">
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="beltColor"
                         data-target="beltColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.beltColor}
+                        value={colors.beltColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="beltColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.beltColor }}
-                      ></label>
+                        style={{ background: colors.beltColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.beltPocket &&
-                      options.beltPocket.colors &&
-                      Object.entries(options.beltPocket.colors).map(
+                      options.beltPocket.beltColors &&
+                      Object.entries(options.beltPocket.beltColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.beltColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : "outline-transparent"
-                              } ${
-                                value === "#ffffff"
-                                  ? "!outline-gray-300"
-                                  : "border-transparent"
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.beltColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''}`}
                               data-value={value}
                               data-target="beltColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('beltColor', value)
+                              }}
                             ></button>
                           </div>
                         )
@@ -788,33 +810,30 @@ function Sidebar() {
                         id="pocketColor"
                         data-target="pocketColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.pocketColor}
+                        value={colors.pocketColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="pocketColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.pocketColor }}
+                        style={{ background: colors.pocketColor }}
                       ></label>
                     </div>
                     {options.beltPocket &&
-                      options.beltPocket.pocketSquare &&
-                      Object.entries(options.beltPocket.pocketSquare).map(
+                      options.beltPocket.pocketSquareColors &&
+                      Object.entries(options.beltPocket.pocketSquareColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-transparent outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.pocketColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : ""
-                              } ${
-                                value === "#ffffff" ? "!outline-gray-300" : ""
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.pocketSquareColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''} ml-[2px]`}
                               data-value={value}
                               data-target="pocketColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('pocketSquareColor', value)
+                              }}
                             ></button>
                           </div>
                         )
@@ -823,38 +842,37 @@ function Sidebar() {
                 </TabPanel>
                 <TabPanel>
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="socksColor"
                         data-target="socksColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.socksColor}
+                        value={colors.socksColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="socksColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.socksColor }}
-                      ></label>
+                        style={{ background: colors.socksColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.beltPocket &&
-                      options.beltPocket.socks &&
-                      Object.entries(options.beltPocket.socks).map(
+                      options.beltPocket.sockColors &&
+                      Object.entries(options.beltPocket.sockColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-transparent outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.socksColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : ""
-                              } ${
-                                value === "#ffffff" ? "!outline-gray-300" : ""
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.sockColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''} ml-[2px] `}
                               data-value={value}
                               data-target="socksColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('sockColor', value);
+                              }}
                             ></button>
                           </div>
                         )
@@ -863,38 +881,37 @@ function Sidebar() {
                 </TabPanel>
                 <TabPanel>
                   <div className="grid grid-cols-5 gap-5">
-                    <div>
+                    <div className="relative">
                       <input
                         id="buckleColor"
                         data-target="buckleColor"
                         className="h-0 w-0 opacity-0 ml-[2px]"
-                        value={CustomColors.buckleColor}
+                        value={colors.buckleColor}
                         type="color"
-                        onChange={handleCustomColorChnage}
+                        onChange={handleColorChange}
                       />
                       <label
                         htmlFor="buckleColor"
                         className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
-                        style={{ background: CustomColors.buckleColor }}
-                      ></label>
+                        style={{ background: colors.buckleColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
                     </div>
                     {options.beltPocket &&
-                      options.beltPocket.buckle &&
-                      Object.entries(options.beltPocket.buckle).map(
+                      options.beltPocket.buckleColors &&
+                      Object.entries(options.beltPocket.buckleColors).map(
                         ([key, value]) => (
                           <div key={key}>
                             <button
-                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full outline outline-1 outline-transparent outline-offset-1 duration-200 ease-in-out ml-[2px] ${
-                                activeButton.buckleColor === value
-                                  ? "active-button !outline-[#4da6ff]"
-                                  : ""
-                              } ${
-                                value === "#ffffff" ? "!outline-gray-300" : ""
-                              } `}
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.buckleColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''} ml-[2px]`}
                               data-value={value}
                               data-target="buckleColor"
                               style={{ backgroundColor: value }}
-                              onClick={handleFixedColor}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('buckleColor', value)
+                              }}
                             ></button>
                           </div>
                         )
@@ -912,4 +929,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar
+export default Sidebar;
