@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CustomizationContext } from "../context/CustomizationContext";
 import useGetFebrics from "../hooks/useGetFebrics";
 
@@ -9,12 +9,13 @@ function CustomizationProvider({ children }) {
       ? JSON.parse(storedItems)
       : [
           { name: "jacket", toggled: true, price: 200 },
+          { name: "shirt", toggled: true, price: 100 },
           { name: "waistcoat", toggled: true, price: 120 },
           { name: "tie", toggled: true, price: 50 },
           { name: "tieClip", toggled: true, price: 20 },
           { name: "pocketSquare", toggled: true, price: 40 },
           { name: "belt", toggled: true, price: 75 },
-          { name: "pant", toggled: true, price: 200 },
+          { name: "pant", toggled: true, price: 100 },
           { name: "shoe", toggled: true, price: 150 },
         ];
   });
@@ -49,10 +50,6 @@ function CustomizationProvider({ children }) {
     setSidebarValue(sidebarType);
   };
 
-  // handle reset all edit
-  const handleResetEdit = () => {
-    console.log('reset');
-  };
 
   const providerValue = {
     toggledItems,
@@ -61,7 +58,6 @@ function CustomizationProvider({ children }) {
     sidebarValue,
     setSidebarValue,
     handleSidebar,
-    handleResetEdit,
     totalPrice,
     calculateTotalPrice,
     fabricData,

@@ -11,6 +11,7 @@ function Model(props) {
   const {colors} = useContext(ColorContext);
   const { nodes, materials } = useGLTF("/suitNewV4.gltf");
 
+
   useEffect(() => {
     gsap.fromTo(
       groupRef.current.position,
@@ -122,7 +123,7 @@ function Model(props) {
                     receiveShadow
                     geometry={nodes.TieClip.geometry}
                     material={nodes.TieClip.material.clone()}
-                    material-color={"white"}
+                    material-color={colors.tieClipColor}
                     position={[-0.651, 151.284, 8.02]}
                     scale={[1.364, 0.183, 0.183]}
                   />

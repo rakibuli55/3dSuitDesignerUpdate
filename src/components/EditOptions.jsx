@@ -10,9 +10,11 @@ import resetImg from "../assets/images/reset.svg";
 import { useContext, useEffect } from "react";
 import { CustomizationContext } from "../context/CustomizationContext";
 import gsap from "gsap";
+import { ColorContext } from "../context/index";
 
 function EditOptions() {
-    const {handleSidebar, handleResetEdit} = useContext(CustomizationContext)
+    const {handleSidebar} = useContext(CustomizationContext)
+    const {handleResetEdit}  = useContext(ColorContext)
 
 
     useEffect(() => {

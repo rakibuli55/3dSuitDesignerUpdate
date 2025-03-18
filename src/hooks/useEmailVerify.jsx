@@ -19,7 +19,9 @@ const useEmailVerify = () => {
                 navigate('/verify-otp');
             }
         }catch(error){
-            toast.success(error.response.data.message);
+            toast.error(error.response.data.message);
+        }finally{
+            setisLoading(false)
         }
     }
 

@@ -16,6 +16,7 @@ import PaymentSuccess from "../pages/PaymentSuccess";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import PublicRoute from "../routes/PublicRoute";
 import UserProfilePage from "../pages/UserProfilePage";
+import PrivateRoute from "../routes/PrivateRoute";
 
 // Lazy load components to improve initial load performance
 const Customization = lazy(() => import("../pages/Customization"));
@@ -104,7 +105,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element:<UserProfilePage />, 
+        element: (
+          <PrivateRoute>
+            <UserProfilePage />
+          </PrivateRoute>
+        )
       },
     ],
   },

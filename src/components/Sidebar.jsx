@@ -761,6 +761,7 @@ function Sidebar() {
                 <Tab>Pocket Square</Tab>
                 <Tab>Socks</Tab>
                 <Tab>Buckle</Tab>
+                <Tab>Tie Clip</Tab>
               </TabList>
 
               <div className="fabric-container overflow-y-auto">
@@ -911,6 +912,45 @@ function Sidebar() {
                               onClick={(e) => {
                                 handleColorChange(e);
                                 handleActiveColorButton('buckleColor', value)
+                              }}
+                            ></button>
+                          </div>
+                        )
+                      )}
+                  </div>
+                </TabPanel>
+                <TabPanel>
+                  <div className="grid grid-cols-5 gap-5">
+                    <div className="relative">
+                      <input
+                        id="tieClipColor"
+                        data-target="tieClipColor"
+                        className="h-0 w-0 opacity-0 ml-[2px]"
+                        value={colors.buckleColor}
+                        type="color"
+                        onChange={handleColorChange}
+                      />
+                      <label
+                        htmlFor="tieClipColor"
+                        className="inline-block h-10 w-10 max-md:h-8 max-md:w-8 rounded-full cursor-pointer"
+                        style={{ background: colors.tieClipColor }}
+                      >
+                        <p className="absolute h-10 w-10 max-md:h-8 max-md:w-8 top-0 left-[2px] flex items-center justify-center text-[20px] text-white bg-[rgba(0,0,0,0.1)] rounded-full"><GrFormEdit /></p>
+                      </label>
+                    </div>
+                    {options.tieClip &&
+                      options.tieClip.colors &&
+                      Object.entries(options.tieClip.colors).map(
+                        ([key, value]) => (
+                          <div key={key}>
+                            <button
+                              className={`h-10 w-10 max-md:h-8 max-md:w-8 color-option rounded-full ${selectedColor.tieClipColor === value ? 'border-[3px] border-theme-color duration-75 ease-out' : ''} ml-[2px]`}
+                              data-value={value}
+                              data-target="tieClipColor"
+                              style={{ backgroundColor: value }}
+                              onClick={(e) => {
+                                handleColorChange(e);
+                                handleActiveColorButton('tieClipColor', value)
                               }}
                             ></button>
                           </div>

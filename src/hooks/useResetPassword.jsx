@@ -16,6 +16,7 @@ const useResetPassword = () => {
             if(response.status === 200){
                 toast.success(response.data.message);
                 navigate('/login');
+                localStorage.removeItem('userEmail');
             }
         }catch(error){
             toast.success(error.response.data.message);

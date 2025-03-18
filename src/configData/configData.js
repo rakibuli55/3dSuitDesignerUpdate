@@ -56,6 +56,19 @@ const options = {
         golden: "#C6985D",
       }
     },
+    tieClip: {
+      colors: {
+        gray: "#545454",
+        grayLight: "#8C8C8C",
+        maroon: "#800A0A",
+        maroonDark: "#5F2411",
+        maroonDeep: "#3A0E12",
+        blueLight: "#506C91",
+        white: "#ffffff",
+        navyBlue: "#071746",
+        golden: "#C6985D",
+      }
+    },
     waistcoat: {
       fabricColors: {
         gray: "#545454",

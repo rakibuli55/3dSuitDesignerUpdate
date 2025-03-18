@@ -18,7 +18,6 @@ const ResetPassPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-    clearErrors,
     watch,
   } = useForm({
     defaultValues:{
@@ -42,7 +41,7 @@ const ResetPassPage = () => {
         <div className="flex flex-col gap-y-4 lg:gap-y-6">
           <div className="flex flex-col gap-y-2  ">
             <div className="flex flex-col gap-y-3 lg:gap-y-6  ">
-              <input type="email" defaultValue={user_email} name="email" {...register('email')} />
+              <input type="email" defaultValue={user_email} name="email" {...register('email')}  className="hidden"/>
               {/* Password Input */}
               <div className="flex flex-col w-full relative items-start gap-y-2">
                 <label

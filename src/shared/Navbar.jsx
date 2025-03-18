@@ -51,7 +51,7 @@ function Navbar() {
   
 
   return (
-    <header className="fixed w-full left-0 top-8 custom-2xl:top-6 custom-xl:top-6 custom-lg:top-5 max-md:top-0 flex items-end z-20">
+    <header className="fixed w-full left-0 top-8 custom-2xl:top-6 custom-xl:top-6 custom-lg:top-5 max-md:top-5 flex items-end z-20">
       <div className="container" ref={headerRef}>
         <div className="flex items-center justify-between">
           <div className="py-4 px-8 custom-2xl:py-3 custom-xl:py-[10px] custom-2xl:px-4 custom-xl:px-3 custom-lg:py-3 custom-lg:px-4 max-md:py-3 max-md:px-4 custom-xs:!py-2 custom-xs:!px-3 bg-white rounded-[50px] inline-block border border-[rgba(79,77,73,0.07)]">
@@ -72,11 +72,11 @@ function Navbar() {
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
                 >
                   <img
-                    className="h-[40px] w-[40px] rounded-full object-cover"
+                    className="h-[40px] w-[40px] rounded-full object-cover custom-xs:w-8 custom-xs:h-8"
                     src={userAvatar}
                     alt="user-avatar"
                   />
-                  <span className="text-sm">
+                  <span className="text-sm custom-xs:text-[12px]">
                     <TfiAngleDown />
                   </span>
                 </p>
@@ -102,16 +102,16 @@ function Navbar() {
                 </ul>
               </div>
             ) : (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 custom-xs:gap-2">
                 <Link
                   to={"/login"}
-                  className="inline-block py-2 bg-white px-6 text-[18px] rounded-[30px] duration-200 ease-in-out hover:bg-theme-color hover:text-white"
+                  className="inline-block py-2 bg-white px-6 text-[18px] rounded-[30px] duration-200 ease-in-out hover:bg-theme-color hover:text-white custom-xs:px-5 custom-xs:text-sm"
                 >
                   Login
                 </Link>
                 <Link
                   to={"/signup"}
-                  className="inline-block py-2 bg-white px-6 text-[18px] rounded-[30px] duration-200 ease-in-out hover:bg-theme-color hover:text-white"
+                  className="inline-block py-2 bg-white px-6 text-[18px] rounded-[30px] duration-200 ease-in-out hover:bg-theme-color hover:text-white custom-xs:px-5 custom-xs:text-sm"
                 >
                   Signup
                 </Link>

@@ -29,7 +29,7 @@ function Home() {
   }, []);
   
   return (
-    <section className="pt-[60px] custom-xl:pt-[40px] relative z-[1] h-screen custom-2xl:min-h-screen max-md:h-auto overflow-hidden custom-2xl:overflow-y-auto custom-xl:overflow-y-auto custom-md:pt-[80px] custom-sm:pt-[100px] custom-xs:pt-[90px]">
+    <section className="pt-[60px] custom-xl:pt-[40px] relative z-[1] h-screen custom-2xl:min-h-screen max-md:h-auto overflow-hidden custom-2xl:overflow-y-auto custom-xl:overflow-y-auto custom-md:pt-[130px] custom-sm:pt-[100px] custom-xs:pt-[90px]">
       <div className="container">
         <div className="text-center">
             <h1 className="heading text-[60px] custom-2xl:text-[50px] custom-xl:text-[45px] custom-lg:text-[36px]  max-md:text-[36px] max-md:leading-normal font-bold uppercase leading-[87px] custom-lg:leading-normal text-[#1B1812] mb-2 custom-xl:mb-1 custom-sm:!text-[30px] custom-xs:!text-[26px]">

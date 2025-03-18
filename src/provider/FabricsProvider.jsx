@@ -12,13 +12,14 @@ const FabricsProvider = ({ children }) => {
     pantsTexture: null,
     shoePattern: null,
   });
+
   const [selectedFabrics, setSelectedFabrics] = useState({
     jacket: null,
     shirt: null,
-    tie:null,
+    tie: null,
     waistcoat: null,
-    pant:null,
-    shoe:null,
+    pant: null,
+    shoe: null,
   });
 
   const [loadedfarbics, setLoadedFabrics] = useState({});
@@ -38,15 +39,19 @@ const FabricsProvider = ({ children }) => {
     if (fabricData && fabricData.length > 0) {
       const newTexture = {};
       fabricData.forEach((fabric) => {
-        const texture = loadTexture(
-          `${import.meta.env.VITE_SERVER_URL}/backend/images/texture/${
-            fabric.id
-          }`
-        );
-        if (texture) {
-          newTexture[`${fabric.type}${fabric.fabric.toLowerCase()}`] =
-            texture || null;
+        if (fabric.fabric !== "Solid") {
+          const texture = loadTexture(
+            `${import.meta.env.VITE_SERVER_URL}/backend/images/texture/${
+              fabric.id
+            }`
+          );
+          if (texture) {
+            newTexture[`${fabric.type}${fabric.fabric.toLowerCase()}`] =
+              texture || null;
+          }
         }
+
+       
       });
       setLoadedFabrics(newTexture);
     }
@@ -77,8 +82,10 @@ const FabricsProvider = ({ children }) => {
     <FabricContext.Provider
       value={{
         textures,
+        setTextures,
         handleTexturesChange,
         selectedFabrics,
+        setSelectedFabrics,
         handleButtonClick,
       }}
     >
